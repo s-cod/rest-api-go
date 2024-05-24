@@ -4,11 +4,13 @@ build:
 
 .PHONY: db
 db-start:
-	docker start habr-pg
-db-run:
-	docker run --name habr-pg -p 5432:5432 -e POSTGRES_USER=s -e POSTGRES_PASSWORD=s -e POSTGRES_DB=restapi_dev -d postgres
-db-psql:
-	docker exec -it habr-pg psql -U sofron restapi_dev
+	docker compose start
+db-up:
+	docker compose up -d
+db-stop:
+	docker compose stop
+# db-psql:
+# 	docker exec -it rest-api psql -U restapi restapi
 
 .PHONY: test
 test:
