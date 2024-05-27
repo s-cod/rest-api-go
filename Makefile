@@ -3,10 +3,13 @@ build:
 	go build -v ./cmd/apiserver/
 
 .PHONY: db
-db-start:
+db-stop:
 	docker compose start
-db-up:
+db:
 	docker compose up -d
+# run:
+# 	docker run --name api-go -e POSTGRES_DB=rest-api -e POSTGRES_USER=restapi -e POSTGRES_PASSWORD=restapi -v "${pwd}\database:/var/lib/postgresql/data" -d postgres
+	
 db-stop:
 	docker compose stop
 # db-psql:

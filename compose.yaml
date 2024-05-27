@@ -9,4 +9,5 @@ services:
             - ./database:/var/lib/postgresql/data
         ports:
             - '5432:5432'
-# 	docker run --name rest-api -p 5432:5432 -e POSTGRES_USER=restapi -e POSTGRES_PASSWORD=restapi -e POSTGRES_DB=restapi -d -volumes "./database:./database:/var/lib/postgresql/data" postgres
+
+
