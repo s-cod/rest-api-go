@@ -57,6 +57,7 @@ func (s *APIServer) configureRouter() {
 }
 
 func (s *APIServer) hanleHello() http.HandlerFunc {
+
 	return func(w http.ResponseWriter, r *http.Request) {
 		io.WriteString(w, "hello")
 	}
