@@ -24,14 +24,15 @@ func TestUserRepository_FingByEmail(t *testing.T) {
 
 	defer teardown("users")
 
-	email := "user@example.org"
-	_, err := s.User().FindByEmail(email)
+	u := model.TestUser()
+
+	_, err := s.User().FindByEmail(u.Email)
 	assert.Error(t, err)
 
-	u := model.TestUser()
-	u.Email = email
-	s.User().Create(u)
-	u, err = s.User().FindByEmail(email)
+	_, err = s.User().Create(u)
 	assert.NoError(t, err)
-	assert.NotNil(t, u)
+
+	user, err := s.User().FindByEmail(u.Email)
+	assert.NoError(t, err)
+	assert.NotNil(t, user)
 }
