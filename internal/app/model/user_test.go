@@ -17,14 +17,14 @@ func TestUser_Validate(t *testing.T) {
 		{
 			name: "valid",
 			u: func() *model.User {
-				return model.TestUser()
+				return model.TestUser(t)
 			},
 			isValid: true,
 		},
 		{
 			name: "empty email",
 			u: func() *model.User {
-				u := model.TestUser()
+				u := model.TestUser(t)
 				u.Email = ""
 				return u
 			},
@@ -33,7 +33,7 @@ func TestUser_Validate(t *testing.T) {
 		{
 			name: "invalid email",
 			u: func() *model.User {
-				u := model.TestUser()
+				u := model.TestUser(t)
 				u.Email = "Invalid"
 				return u
 			},
@@ -42,7 +42,7 @@ func TestUser_Validate(t *testing.T) {
 		{
 			name: "empty password",
 			u: func() *model.User {
-				u := model.TestUser()
+				u := model.TestUser(t)
 				u.Password = ""
 				return u
 			},
@@ -51,7 +51,7 @@ func TestUser_Validate(t *testing.T) {
 		{
 			name: "short password",
 			u: func() *model.User {
-				u := model.TestUser()
+				u := model.TestUser(t)
 				u.Password = "123"
 				return u
 			},
@@ -60,7 +60,7 @@ func TestUser_Validate(t *testing.T) {
 		{
 			name: "with encrypt password",
 			u: func() *model.User {
-				u := model.TestUser()
+				u := model.TestUser(t)
 				u.Password = ""
 				u.EncryptedPassword = "encrypt"
 				return u
@@ -82,7 +82,7 @@ func TestUser_Validate(t *testing.T) {
 }
 
 func TestUser_BeforeCreate(t *testing.T) {
-	u := model.TestUser()
+	u := model.TestUser(t)
 	assert.NoError(t, u.BeforeCreate())
 	assert.NotEmpty(t, u.EncryptedPassword)
 }

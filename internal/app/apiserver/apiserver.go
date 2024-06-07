@@ -1,6 +1,7 @@
 package apiserver
 
 import (
+	"database/sql"
 	"io"
 	"net/http"
 
@@ -64,10 +65,9 @@ func (s *APIServer) hanleHello() http.HandlerFunc {
 }
 
 func (s *APIServer) configureStore() error {
-	st := store.New(s.config.Store)
-	if err := st.Open(); err != nil {
-		return err
-	}
+	db, _ := sql.Open("postgres", s.config.BindAddr)
+	st := store.New(db)
+
 	s.store = st
 	return nil
 }

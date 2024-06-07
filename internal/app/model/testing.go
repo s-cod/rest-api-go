@@ -1,6 +1,8 @@
 package model
 
-func TestUser() *User {
+import "testing"
+
+func TestUser(t *testing.T) *User {
 	return &User{
 		Email:    "user@example.org",
 		Password: "password",

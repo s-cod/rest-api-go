@@ -9,29 +9,29 @@ import (
 )
 
 func TestUserRepository_Create(t *testing.T) {
-	s, teardown := store.TestStore(t, "host=localhost dbname=restapi_test user=restapi password=restapi sslmode=disable")
-
+	db, teardown := store.TestDB(t, "host=localhost dbname=restapi_test user=restapi password=restapi sslmode=disable")
 	defer teardown("users")
 
-	u, err := s.User().Create(model.TestUser())
+	s := store.New(db)
+
+	u, err := s.User().Create(model.TestUser(t))
 	assert.NoError(t, err)
 	assert.NotNil(t, u)
 
 }
 
 func TestUserRepository_FingByEmail(t *testing.T) {
-	s, teardown := store.TestStore(t, "host=localhost dbname=restapi_test user=restapi password=restapi sslmode=disable")
+	db, teardown := store.TestDB(t, "host=localhost dbname=restapi_test user=restapi password=restapi sslmode=disable")
 
 	defer teardown("users")
 
-	u := model.TestUser()
+	s := store.New(db)
+	u := model.TestUser(t)
 
 	_, err := s.User().FindByEmail(u.Email)
 	assert.Error(t, err)
 
-	_, err = s.User().Create(u)
-	assert.NoError(t, err)
-
+	s.User().Create(u)
 	user, err := s.User().FindByEmail(u.Email)
 	assert.NoError(t, err)
 	assert.NotNil(t, user)
