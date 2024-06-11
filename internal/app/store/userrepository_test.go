@@ -8,8 +8,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var (
+	databaseURL string = "host=localhost dbname=restapi_test user=restapi password=restapi sslmode=disable"
+)
+
 func TestUserRepository_Create(t *testing.T) {
-	db, teardown := store.TestDB(t, "host=localhost dbname=restapi_test user=restapi password=restapi sslmode=disable")
+	db, teardown := store.TestDB(t, databaseURL)
 	defer teardown("users")
 
 	s := store.New(db)
@@ -21,7 +25,7 @@ func TestUserRepository_Create(t *testing.T) {
 }
 
 func TestUserRepository_FingByEmail(t *testing.T) {
-	db, teardown := store.TestDB(t, "host=localhost dbname=restapi_test user=restapi password=restapi sslmode=disable")
+	db, teardown := store.TestDB(t, databaseURL)
 
 	defer teardown("users")
 
