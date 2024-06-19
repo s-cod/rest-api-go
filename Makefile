@@ -5,8 +5,8 @@ run:
 	go run ./cmd/apiserver/
 
 .PHONY: db
-db-stop:
-	docker compose start
+# db-stop:
+# 	docker compose start
 db:
 	docker compose up -d
 # run:
@@ -15,8 +15,8 @@ db:
 # docker exec -it 5d8583c47e4e psql -U restapi  rest-api
 #  migrate -path migrations -database postgres://restapi:restapi@localhost:5432/rest-api?sslmode=disable up
 
-db-stop:
-	docker compose stop
+# db-stop:
+# 	docker compose stop
 
 .PHONY: test
 test:
