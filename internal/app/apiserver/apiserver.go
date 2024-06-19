@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/s-cod/rest-api/internal/app/store"
+	"github.com/s-cod/rest-api/internal/app/store/sqlstore"
 	"github.com/sirupsen/logrus"
 )
 
@@ -15,7 +15,7 @@ type APIServer struct {
 	config *Config
 	logger *logrus.Logger
 	router *mux.Router
-	store  *store.Store
+	store  *sqlstore.Store
 }
 
 // New...
@@ -66,7 +66,7 @@ func (s *APIServer) hanleHello() http.HandlerFunc {
 
 func (s *APIServer) configureStore() error {
 	db, _ := sql.Open("postgres", s.config.BindAddr)
-	st := store.New(db)
+	st := sqlstore.New(db)
 
 	s.store = st
 	return nil

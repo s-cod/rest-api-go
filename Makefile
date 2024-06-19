@@ -21,6 +21,8 @@ db-stop:
 .PHONY: test
 test:
 	go test -v -race -timeout 30s ./...
+# clear cache
+# go test -v -race -count=1 -timeout 30s ./...
 
 
 
